@@ -39,4 +39,84 @@ body {
   text-decoration: underline;
   color: rgb(79, 170, 245);
   cursor: pointer;
+}
+
+.timesheet-container {
+  background-color: #eff4f7;
+  padding: 40px;
+  margin-inline: auto;
+  width: min(70%, 80rem);
+  display: flex;
+}
+
+.timesheet-title p {
+  margin-top: 0px;
+  font-size: 2rem;
+}
+
+.line-item-header {
+  display: flex;
+  align-items: center;
+}
+
+.line-item {
+  display: flex;
+  align-items: center;
+  margin: 10px 0px;
+}
+.line-item:first-of-type {
+  margin-top: 0px;
+}
+.line-item input:last-of-type {
+  margin: 0 10px;
+  width: 122px;
+}
+
+.date,
+.time {
+  width: 135px;
+}
+
+.add-line-item button {
+  background-color: white;
+  border: 1px solid black;
+  margin: 0 10px;
+  font-size: 1rem;
+  padding: 10px;
+  cursor: pointer;
+}
+.add-line-item button:first-of-type {
+  margin-left: 0px;
+}
+
+.rate {
+  display: flex;
+  align-items: center;
+}
+.rate p {
+  margin-right: 10px;
+}
+.rate input {
+  width: 60px;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+}
+
+.description-edit {
+  display: flex;
+  align-items: center;
+}
+.description-edit p {
+  margin-right: 10px;
+}
+.description-edit button {
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+  color: rgb(79, 170, 245);
+  cursor: pointer;
 }/*# sourceMappingURL=App.css.map */
