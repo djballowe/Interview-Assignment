@@ -1,0 +1,42 @@
+body {
+  margin: 50px;
+}
+
+.home-container {
+  margin-inline: auto;
+  width: min(90%, 50rem);
+}
+
+.home-title {
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 2rem;
+}
+
+.projects-container {
+  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 200px);
+  width: min(90%, 50rem);
+  margin-inline: auto;
+  gap: 20px;
+}
+.projects-container div {
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+.projects-container div:last-of-type {
+  border: none;
+}
+.projects-container p:nth-of-type(2) {
+  color: rgb(79, 170, 245);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.add-sheet {
+  text-decoration: underline;
+  color: rgb(79, 170, 245);
+  cursor: pointer;
+}/*# sourceMappingURL=App.css.map */
