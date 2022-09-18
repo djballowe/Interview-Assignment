@@ -71,6 +71,11 @@ body {
   margin: 0 10px;
   width: 122px;
 }
+.line-item p {
+  margin: 0 0 0 5px;
+  color: rgb(154, 154, 154);
+  cursor: pointer;
+}
 
 .date,
 .time {
@@ -81,7 +86,7 @@ body {
   background-color: white;
   border: 1px solid black;
   margin: 0 10px;
-  font-size: 1rem;
+  font-size: 1.2rem;
   padding: 10px;
   cursor: pointer;
 }
@@ -91,19 +96,26 @@ body {
 
 .rate {
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 .rate p {
   margin-right: 10px;
 }
 .rate input {
   width: 60px;
+  margin-right: 10px;
+}
+
+.edit-rate {
+  display: flex;
 }
 
 .description {
   display: flex;
   flex-direction: column;
   margin-left: 50px;
+  max-width: 200px;
+  word-wrap: break-word;
 }
 
 .description-edit {
@@ -113,10 +125,21 @@ body {
 .description-edit p {
   margin-right: 10px;
 }
-.description-edit button {
+
+.edit-button {
   background-color: transparent;
   border: none;
   text-decoration: underline;
   color: rgb(79, 170, 245);
+  cursor: pointer;
+}
+
+.edit-description {
+  display: flex;
+  flex-direction: column;
+}
+.edit-description button {
+  max-width: 70px;
+  margin-top: 10px;
   cursor: pointer;
 }/*# sourceMappingURL=App.css.map */
