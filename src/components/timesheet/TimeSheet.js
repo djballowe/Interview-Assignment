@@ -35,7 +35,12 @@ export default function TimeSheet() {
 
   const handleTimeChange = (e) => {
     const id = e.target.id;
-    lineItem[id].time = e.target.value;
+    const time = e.target.value;
+    if (!time) {
+      lineItem[id].time = 0;
+    } else {
+      lineItem[id].time = time;
+    }
     let total = 0;
     lineItem.forEach((item) => {
       total += parseInt(item.time);
@@ -45,8 +50,11 @@ export default function TimeSheet() {
     setCost(cost);
   };
 
-  const handleDateChange = () => {
-    console.log("date change");
+  const handleDateChange = (e) => {
+    const date = e.target.value;
+    const id = e.target.id;
+    lineItem[id].date = new Date(date);
+    console.log(lineItem[id].date);
   };
 
   const lineItems = lineItem.map((item, index) => {
@@ -66,7 +74,7 @@ export default function TimeSheet() {
     if (lineItem.length === 0) {
       addLineItem();
     }
-  }, [addLineItem, lineItem, lineItem.length]);
+  }, [addLineItem, lineItem, lineItem.length, rate]);
 
   return (
     <div className="timesheet-container">
