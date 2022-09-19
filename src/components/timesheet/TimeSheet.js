@@ -111,11 +111,11 @@ export default function TimeSheet() {
     );
   });
 
-  const getLineItems = () => {
+  useEffect(() => {
     apiInstance
       .get("/")
-      .then(async (response) => {
-        const data = await response.data;
+      .then((response) => {
+        const data = response.data;
         data.forEach((item) => {
           if (item._id === id) {
             setDescription(item.description);
@@ -127,11 +127,9 @@ export default function TimeSheet() {
       .catch(() => {
         console.log("error retrieving data");
       });
-  };
-  useEffect(() => {
-    getLineItems();
+    calculateTotal();
     console.log("use");
-  }, []);
+  }, [time]);
 
   return (
     <div className="timesheet-container">

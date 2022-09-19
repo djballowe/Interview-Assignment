@@ -3,7 +3,6 @@ import { accountSignOut, auth } from "../firebase auth/config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import Projects from "./Projects";
-import LineItem from "../timesheet/LineItem";
 import { apiInstance } from "../axios/config";
 
 export default function Home() {

@@ -21,7 +21,6 @@ export default function LineItem(props) {
         onChange={props.handleTime}
         defaultValue={props.time}
       />
-      <p>X</p>
     </div>
   );
 }
