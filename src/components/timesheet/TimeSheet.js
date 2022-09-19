@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase auth/config";
-import axios from "axios";
+import { apiInstance } from "../axios/config";
 import LineItem from "./LineItem";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 export default function TimeSheet() {
   const [editDescription, setEditDescription] = useState(false);
@@ -64,6 +65,7 @@ export default function TimeSheet() {
     e.preventDefault();
     const payload = {
       user: user.uid,
+      rate: rate,
       description: description,
       line_items: lineItem,
     };
@@ -96,16 +98,15 @@ export default function TimeSheet() {
 
   useEffect(() => {
     const getLineItems = () => {
-      axios({
-        url: "http://localhost:8080/api",
-        method: "GET",
-      })
+      apiInstance
+        .get("/")
         .then(async (response) => {
           const data = await response.data;
           data.forEach((item) => {
             if (item._id === id) {
               setDescription(item.description);
               setLineItem(item.line_items);
+              setRate(item.rate);
             }
           });
         })
@@ -122,7 +123,9 @@ export default function TimeSheet() {
         <div className="timesheet-title">
           <p>Timesheet</p>
         </div>
-        <button onClick={addLineItem}>Add Line +</button>
+        <div className="add-line-item">
+          <button onClick={addLineItem}>Add Line +</button>
+        </div>
         <form action="" onSubmit={handleSubmit}>
           <div className="add-line-item">
             <button>Save</button>
@@ -142,7 +145,7 @@ export default function TimeSheet() {
               <input
                 type="number"
                 onChange={(e) => {
-                  setRate(e.target.value);
+                  setRate(parseInt(e.target.value));
                 }}
                 defaultValue={rate}
               />

@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const TimeSheetSchema = new Schema({
   user: String,
   description: String,
+  rate: Number,
   line_items: [{ date: String, time: Number }],
 });
 

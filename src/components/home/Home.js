@@ -4,7 +4,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import Projects from "./Projects";
 import LineItem from "../timesheet/LineItem";
-import axios from "axios";
+import { apiInstance } from "../axios/config";
 
 export default function Home() {
   let navigate = useNavigate();
@@ -12,10 +12,7 @@ export default function Home() {
   const [projects, setProjects] = useState([]);
 
   const getProjects = () => {
-    axios({
-      url: "http://localhost:8080/api",
-      method: "GET",
-    }).then(async (response) => {
+    apiInstance.get("/").then(async (response) => {
       const data = await response.data;
       for (let i = 0; i < data.length; i++) {
         if (data[i].user === user.uid) {
@@ -48,7 +45,7 @@ export default function Home() {
         <div className="add-sheet">
           <p
             onClick={() => {
-              navigate("/sheets/0");
+              navigate("/sheets/new");
             }}
           >
             Add New Sheet +
