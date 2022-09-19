@@ -54,6 +54,7 @@ body {
   margin-inline: auto;
   width: min(70%, 80rem);
   display: flex;
+  border: 1px solid black;
 }
 
 .timesheet-title p {
@@ -64,6 +65,11 @@ body {
 .line-item-header {
   display: flex;
   align-items: center;
+}
+
+.line-item-container p {
+  color: rgb(122, 122, 122);
+  text-decoration: underline;
 }
 
 .line-item {

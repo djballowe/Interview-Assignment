@@ -26,6 +26,7 @@ export default function TimeSheet() {
     } else if (id === "rate") {
       editRate ? setEditRate(false) : setEditRate(true);
     }
+    calculateTotal();
   };
 
   //Come back to this
@@ -46,6 +47,10 @@ export default function TimeSheet() {
     } else {
       lineItem[id].time = time;
     }
+    calculateTotal();
+  };
+
+  const calculateTotal = () => {
     let total = 0;
     lineItem.forEach((item) => {
       total += item.time;
@@ -63,24 +68,33 @@ export default function TimeSheet() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const payload = {
-      user: user.uid,
-      rate: rate,
-      description: description,
-      line_items: lineItem,
-    };
-
-    axios({
-      url: "http://localhost:8080/api/save",
-      method: "POST",
-      data: payload,
-    })
-      .then(() => {
-        console.log("Data saved");
-      })
-      .catch(() => {
-        console.log("error");
+    if (id !== "new") {
+      apiInstance.post("/update", {
+        id: id,
+        rate: rate,
+        description: description,
+        line_items: lineItem,
       });
+    } else {
+      const payload = {
+        user: user.uid,
+        rate: rate,
+        description: description,
+        line_items: lineItem,
+      };
+
+      axios({
+        url: "http://localhost:8080/api/save",
+        method: "POST",
+        data: payload,
+      })
+        .then(() => {
+          console.log("Data saved");
+        })
+        .catch(() => {
+          console.log("error");
+        });
+    }
   };
 
   const lineItems = lineItem.map((item, index) => {
@@ -96,26 +110,27 @@ export default function TimeSheet() {
     );
   });
 
-  useEffect(() => {
-    const getLineItems = () => {
-      apiInstance
-        .get("/")
-        .then(async (response) => {
-          const data = await response.data;
-          data.forEach((item) => {
-            if (item._id === id) {
-              setDescription(item.description);
-              setLineItem(item.line_items);
-              setRate(item.rate);
-            }
-          });
-        })
-        .catch(() => {
-          console.log("error retrieving data");
+  const getLineItems = () => {
+    apiInstance
+      .get("/")
+      .then(async (response) => {
+        const data = await response.data;
+        data.forEach((item) => {
+          if (item._id === id) {
+            setDescription(item.description);
+            setLineItem(item.line_items);
+            setRate(item.rate);
+          }
         });
-    };
+      })
+      .catch(() => {
+        console.log("error retrieving data");
+      });
+  };
+  useEffect(() => {
     getLineItems();
-  }, [id]);
+    console.log("use");
+  }, []);
 
   return (
     <div className="timesheet-container">
@@ -163,6 +178,13 @@ export default function TimeSheet() {
             </div>
           </div>
           <div className="line-item-container" id="inputs">
+            <p
+              style={{
+                display: lineItem.length ? "none" : "block",
+              }}
+            >
+              Add a line item to get started
+            </p>
             {lineItems}
           </div>
           <div>

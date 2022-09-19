@@ -28,4 +28,26 @@ router.get("/", (req, res) => {
     });
 });
 
+router.post("/update", (req, res) => {
+  const data = req.body;
+
+  TimeSheet.updateOne(
+    { _id: data.id },
+    {
+      $set: {
+        rate: data.rate,
+        description: data.description,
+        time: data.time,
+        line_items: data.line_items,
+      },
+    },
+    (error, doc) => {
+      if (error) {
+        return error;
+      }
+      res.json(doc);
+    }
+  );
+});
+
 module.exports = router;
