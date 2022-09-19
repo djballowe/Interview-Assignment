@@ -1,17 +1,22 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase auth/config";
+import { apiInstance } from "../axios/config";
 import LineItem from "./LineItem";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 export default function TimeSheet() {
   const [editDescription, setEditDescription] = useState(false);
   const [description, setDescription] = useState("");
-
   const [editRate, setEditRate] = useState(false);
   const [rate, setRate] = useState(0);
-
   const [time, setTime] = useState(0);
   const [cost, setCost] = useState(0);
-
   const [lineItem, setLineItem] = useState([]);
+  const [user] = useAuthState(auth);
+
+  let { id } = useParams();
 
   const toggleInput = (e) => {
     e.preventDefault();
@@ -21,6 +26,7 @@ export default function TimeSheet() {
     } else if (id === "rate") {
       editRate ? setEditRate(false) : setEditRate(true);
     }
+    calculateTotal();
   };
 
   //Come back to this
@@ -35,15 +41,19 @@ export default function TimeSheet() {
 
   const handleTimeChange = (e) => {
     const id = e.target.id;
-    const time = e.target.value;
+    const time = parseInt(e.target.value);
     if (!time) {
       lineItem[id].time = 0;
     } else {
       lineItem[id].time = time;
     }
+    calculateTotal();
+  };
+
+  const calculateTotal = () => {
     let total = 0;
     lineItem.forEach((item) => {
-      total += parseInt(item.time);
+      total += item.time;
     });
     setTime(total);
     const cost = total * rate;
@@ -54,7 +64,38 @@ export default function TimeSheet() {
     const date = e.target.value;
     const id = e.target.id;
     lineItem[id].date = new Date(date);
-    console.log(lineItem[id].date);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (id !== "new") {
+      apiInstance.post("/update", {
+        id: id,
+        rate: rate,
+        description: description,
+        line_items: lineItem,
+      });
+    } else {
+      const payload = {
+        user: user.uid,
+        rate: rate,
+        description: description,
+        line_items: lineItem,
+      };
+
+      axios({
+        url: "http://localhost:8080/api/save",
+        method: "POST",
+        data: payload,
+      })
+        .then(() => {
+          console.log("Data saved");
+        })
+        .catch(() => {
+          console.log("error");
+        });
+    }
+    alert("Data Saved!");
   };
 
   const lineItems = lineItem.map((item, index) => {
@@ -71,10 +112,24 @@ export default function TimeSheet() {
   });
 
   useEffect(() => {
-    if (lineItem.length === 0) {
-      addLineItem();
-    }
-  }, [addLineItem, lineItem, lineItem.length, rate]);
+    apiInstance
+      .get("/")
+      .then((response) => {
+        const data = response.data;
+        data.forEach((item) => {
+          if (item._id === id) {
+            setDescription(item.description);
+            setLineItem(item.line_items);
+            setRate(item.rate);
+          }
+        });
+      })
+      .catch(() => {
+        console.log("error retrieving data");
+      });
+    calculateTotal();
+    console.log("use");
+  }, [time]);
 
   return (
     <div className="timesheet-container">
@@ -84,9 +139,11 @@ export default function TimeSheet() {
         </div>
         <div className="add-line-item">
           <button onClick={addLineItem}>Add Line +</button>
-          <button>Save</button>
         </div>
-        <form action="">
+        <form action="" onSubmit={handleSubmit}>
+          <div className="add-line-item">
+            <button>Save</button>
+          </div>
           <div className="rate">
             <div className="edit-rate">
               <p>Rate: {rate}</p>
@@ -102,7 +159,7 @@ export default function TimeSheet() {
               <input
                 type="number"
                 onChange={(e) => {
-                  setRate(e.target.value);
+                  setRate(parseInt(e.target.value));
                 }}
                 defaultValue={rate}
               />
@@ -120,6 +177,13 @@ export default function TimeSheet() {
             </div>
           </div>
           <div className="line-item-container" id="inputs">
+            <p
+              style={{
+                display: lineItem.length ? "none" : "block",
+              }}
+            >
+              Add a line item to get started
+            </p>
             {lineItems}
           </div>
           <div>
