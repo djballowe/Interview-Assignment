@@ -71,7 +71,7 @@ export default function TimeSheet() {
       data: payload,
     })
       .then(() => {
-        console.log("Data sent");
+        console.log("Data saved");
       })
       .catch(() => {
         console.log("error");
@@ -91,11 +91,29 @@ export default function TimeSheet() {
     );
   });
 
+  const getLineItems = () => {
+    axios({
+      url: "http://localhost:8080/api",
+      method: "GET",
+    })
+      .then((response) => {
+        const data = response.data;
+        data.forEach((item) => {
+          
+        });
+        console.log(data[0].description)
+      })
+      .catch(() => {
+        console.log("error retrieving data");
+      });
+  };
+
   useEffect(() => {
     if (lineItem.length === 0) {
       addLineItem();
     }
-  }, [addLineItem, lineItem, lineItem.length, rate]);
+    getLineItems();
+  }, [addLineItem, ]);
 
   return (
     <div className="timesheet-container">
