@@ -11,19 +11,17 @@ export default function Home() {
   const [user] = useAuthState(auth);
   const [projects, setProjects] = useState([]);
 
-  console.log(projects);
-
   const getProjects = () => {
     axios({
       url: "http://localhost:8080/api",
       method: "GET",
     }).then(async (response) => {
       const data = await response.data;
-      data.forEach((item) => {
-        if (item.user === user.uid) {
-          setProjects([item]);
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].user === user.uid) {
+          setProjects((curr) => [...curr, data[i]]);
         }
-      });
+      }
     });
   };
 
@@ -36,7 +34,7 @@ export default function Home() {
   }, [user]);
 
   const timeSheets = projects.map((project, index) => {
-    return <Projects key={index} id={index} />;
+    return <Projects key={index} id={project._id} index={index} />;
   });
 
   return (
@@ -48,7 +46,13 @@ export default function Home() {
       <div className="projects-container">
         {timeSheets}
         <div className="add-sheet">
-          <p>Add New Sheet +</p>
+          <p
+            onClick={() => {
+              navigate("/sheets/0");
+            }}
+          >
+            Add New Sheet +
+          </p>
         </div>
       </div>
     </div>

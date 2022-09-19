@@ -3,6 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase auth/config";
 import axios from "axios";
 import LineItem from "./LineItem";
+import { useParams } from "react-router-dom";
 
 export default function TimeSheet() {
   const [editDescription, setEditDescription] = useState(false);
@@ -13,6 +14,8 @@ export default function TimeSheet() {
   const [cost, setCost] = useState(0);
   const [lineItem, setLineItem] = useState([]);
   const [user] = useAuthState(auth);
+
+  let { id } = useParams();
 
   const toggleInput = (e) => {
     e.preventDefault();
@@ -91,29 +94,27 @@ export default function TimeSheet() {
     );
   });
 
-  const getLineItems = () => {
-    axios({
-      url: "http://localhost:8080/api",
-      method: "GET",
-    })
-      .then((response) => {
-        const data = response.data;
-        data.forEach((item) => {
-          
-        });
-        console.log(data[0].description)
-      })
-      .catch(() => {
-        console.log("error retrieving data");
-      });
-  };
-
   useEffect(() => {
-    if (lineItem.length === 0) {
-      addLineItem();
-    }
+    const getLineItems = () => {
+      axios({
+        url: "http://localhost:8080/api",
+        method: "GET",
+      })
+        .then(async (response) => {
+          const data = await response.data;
+          data.forEach((item) => {
+            if (item._id === id) {
+              setDescription(item.description);
+              setLineItem(item.line_items);
+            }
+          });
+        })
+        .catch(() => {
+          console.log("error retrieving data");
+        });
+    };
     getLineItems();
-  }, [addLineItem, ]);
+  }, [id]);
 
   return (
     <div className="timesheet-container">
