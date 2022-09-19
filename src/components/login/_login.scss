@@ -1,0 +1,41 @@
+.login-container {
+  margin-inline: auto;
+  width: min(90%, 30rem);
+  text-align: center;
+  margin-bottom: 100px;
+  margin-top: 100px;
+  button {
+    margin-bottom: 10px;
+  }
+  min-height: calc(95vh - 40px - 364px);
+}
+
+.login-text {
+  p {
+    margin-top: 10px;
+  }
+  h2 {
+    font-size: 4rem;
+  }
+}
+
+.new-customer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(99, 99, 99, 0.815);
+  margin-top: 20px;
+  p:last-of-type {
+    margin-right: 10px;
+    position: relative;
+    text-decoration: none;
+    margin-left: 10px;
+    color: rgb(79, 170, 245);
+    text-decoration: underline;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      color: black;
+    }
+  }
+}

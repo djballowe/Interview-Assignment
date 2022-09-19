@@ -6,6 +6,13 @@ body {
   margin-inline: auto;
   width: min(90%, 50rem);
 }
+.home-container button {
+  background-color: transparent;
+  border: 1px solid black;
+  padding: 10px;
+  text-decoration: underline;
+  cursor: pointer;
+}
 
 .home-title {
   text-align: center;
@@ -142,4 +149,44 @@ body {
   max-width: 70px;
   margin-top: 10px;
   cursor: pointer;
+}
+
+.login-container {
+  margin-inline: auto;
+  width: min(90%, 30rem);
+  text-align: center;
+  margin-bottom: 100px;
+  margin-top: 100px;
+  min-height: calc(95vh - 40px - 364px);
+}
+.login-container button {
+  margin-bottom: 10px;
+}
+
+.login-text p {
+  margin-top: 10px;
+}
+.login-text h2 {
+  font-size: 4rem;
+}
+
+.new-customer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(99, 99, 99, 0.815);
+  margin-top: 20px;
+}
+.new-customer p:last-of-type {
+  margin-right: 10px;
+  position: relative;
+  text-decoration: none;
+  margin-left: 10px;
+  color: rgb(79, 170, 245);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.new-customer p:last-of-type:hover {
+  color: black;
 }/*# sourceMappingURL=App.css.map */

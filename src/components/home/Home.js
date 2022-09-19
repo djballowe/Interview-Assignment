@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { accountSignOut, auth } from "../firebase auth/config";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  let navigate = useNavigate();
+  const [user] = useAuthState(auth);
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  });
+
   return (
     <div className="home-container">
+      <button onClick={accountSignOut}>Sign Out</button>
       <div className="home-title">
         <p>Select a Project</p>
       </div>
