@@ -19,4 +19,6 @@ mongoose.connection.on("connected", () => {
 app.use(express.json());
 app.use(cors());
 
+app.use("/api", require("./routes/api"));
+
 app.listen(PORT, console.log(`Server running at ${PORT}`));

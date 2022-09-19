@@ -1,17 +1,18 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase auth/config";
+import axios from "axios";
 import LineItem from "./LineItem";
 
 export default function TimeSheet() {
   const [editDescription, setEditDescription] = useState(false);
   const [description, setDescription] = useState("");
-
   const [editRate, setEditRate] = useState(false);
   const [rate, setRate] = useState(0);
-
   const [time, setTime] = useState(0);
   const [cost, setCost] = useState(0);
-
   const [lineItem, setLineItem] = useState([]);
+  const [user] = useAuthState(auth);
 
   const toggleInput = (e) => {
     e.preventDefault();
@@ -35,7 +36,7 @@ export default function TimeSheet() {
 
   const handleTimeChange = (e) => {
     const id = e.target.id;
-    const time = e.target.value;
+    const time = parseInt(e.target.value);
     if (!time) {
       lineItem[id].time = 0;
     } else {
@@ -43,7 +44,7 @@ export default function TimeSheet() {
     }
     let total = 0;
     lineItem.forEach((item) => {
-      total += parseInt(item.time);
+      total += item.time;
     });
     setTime(total);
     const cost = total * rate;
@@ -54,7 +55,27 @@ export default function TimeSheet() {
     const date = e.target.value;
     const id = e.target.id;
     lineItem[id].date = new Date(date);
-    console.log(lineItem[id].date);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const payload = {
+      user: user.uid,
+      description: description,
+      line_items: lineItem,
+    };
+
+    axios({
+      url: "http://localhost:8080/api/save",
+      method: "POST",
+      data: payload,
+    })
+      .then(() => {
+        console.log("Data sent");
+      })
+      .catch(() => {
+        console.log("error");
+      });
   };
 
   const lineItems = lineItem.map((item, index) => {
@@ -82,11 +103,11 @@ export default function TimeSheet() {
         <div className="timesheet-title">
           <p>Timesheet</p>
         </div>
-        <div className="add-line-item">
-          <button onClick={addLineItem}>Add Line +</button>
-          <button>Save</button>
-        </div>
-        <form action="">
+        <button onClick={addLineItem}>Add Line +</button>
+        <form action="" onSubmit={handleSubmit}>
+          <div className="add-line-item">
+            <button>Save</button>
+          </div>
           <div className="rate">
             <div className="edit-rate">
               <p>Rate: {rate}</p>
