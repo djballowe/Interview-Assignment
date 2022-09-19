@@ -95,6 +95,7 @@ export default function TimeSheet() {
           console.log("error");
         });
     }
+    alert("Data Saved!");
   };
 
   const lineItems = lineItem.map((item, index) => {
