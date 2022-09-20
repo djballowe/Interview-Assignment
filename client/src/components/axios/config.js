@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const apiInstance = axios.create({
-    baseURL: "http://localhost:8080/api"
+    baseURL: "https://timesheet-server-1.herokuapp.com/api"
 })
