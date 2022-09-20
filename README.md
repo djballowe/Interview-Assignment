@@ -27,3 +27,7 @@
 - in the project directory enter ``` cd server ```
 
 - then run the server with ``` node index.js ```
+
+- to run the client cd into the client folder with ``` cd client ``` from the root directory
+
+- run ``` npm start ```
