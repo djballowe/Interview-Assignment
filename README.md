@@ -10,6 +10,8 @@
 
 **Password:** testing
 
+- if logging in using test credentials it may take a couple seconds to load the sample test sheets from Heroku
+
 ## Tech Stack 
 
 **Client:** React, React Router, SCSS
