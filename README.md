@@ -19,3 +19,11 @@
 **Server:** Node, Express, Firebase Auth, Mongodb
 
 **Deployment:** Node server deployed on Heroku, Client deployed with Vercel
+
+## Running Locally
+
+- Clone the repo
+
+- in the project directory enter ``` cd server ```
+
+- then run the server with ``` node index.js ```
