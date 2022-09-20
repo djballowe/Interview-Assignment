@@ -4,7 +4,7 @@
 
 [https://interview-assignment-client.vercel.app](https://interview-assignment-client.vercel.app/login)
 
-## Sample Log in credentials
+## Sample login credentials
 
 **Email:** test@gmail.com
 
