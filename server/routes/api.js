@@ -37,8 +37,9 @@ router.post("/update", (req, res) => {
       $set: {
         rate: data.rate,
         description: data.description,
-        time: data.time,
         line_items: data.line_items,
+        total: data.time,
+        cost: data.cost,
       },
     },
     (error, doc) => {
@@ -49,7 +50,5 @@ router.post("/update", (req, res) => {
     }
   );
 });
-
-
 
 module.exports = router;

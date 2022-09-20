@@ -36,6 +36,7 @@ export default function Register() {
       alert("Passwords Must Match");
     } else {
       createWithEmail(email, password);
+      navigate("/login");
     }
   };
 
@@ -101,7 +102,7 @@ export default function Register() {
             navigate("/login");
           }}
         >
-          Create an Account
+          Sign In
         </p>
       </div>
     </div>

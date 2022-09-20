@@ -29,8 +29,6 @@ export default function TimeSheet() {
     calculateTotal();
   };
 
-  //Come back to this
-
   const addLineItem = useCallback(() => {
     const item = {
       date: new Date(),
@@ -74,6 +72,8 @@ export default function TimeSheet() {
         rate: rate,
         description: description,
         line_items: lineItem,
+        total: time,
+        cost: cost,
       });
     } else {
       const payload = {
@@ -81,6 +81,8 @@ export default function TimeSheet() {
         rate: rate,
         description: description,
         line_items: lineItem,
+        total: time,
+        cost: cost,
       };
 
       axios({
@@ -121,13 +123,14 @@ export default function TimeSheet() {
             setDescription(item.description);
             setLineItem(item.line_items);
             setRate(item.rate);
+            setTime(item.total);
+            setCost(item.cost);
           }
         });
       })
       .catch(() => {
         console.log("error retrieving data");
       });
-    calculateTotal();
   }, []);
 
   return (
