@@ -2,6 +2,10 @@
   "name": "time-sheet",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "18.4.0",
+    "npm": "8.12.1"
+  },
   "dependencies": {
     "@mdi/js": "^7.0.96",
     "@mdi/react": "^1.6.1",
@@ -10,6 +14,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "cors": "^2.8.5",
+    "create-app-react": "^1.0.6",
     "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "firebase": "^9.10.0",

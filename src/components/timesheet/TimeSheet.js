@@ -129,7 +129,7 @@ export default function TimeSheet() {
       });
     calculateTotal();
     console.log("use");
-  }, [time]);
+  }, []);
 
   return (
     <div className="timesheet-container">
