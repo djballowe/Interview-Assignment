@@ -2,10 +2,6 @@
   "name": "time-sheet",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "18.4.0",
-    "npm": "8.12.1"
-  },
   "dependencies": {
     "@mdi/js": "^7.0.96",
     "@mdi/react": "^1.6.1",
