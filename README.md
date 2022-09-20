@@ -14,6 +14,6 @@
 
 **Client:** React, React Router, SCSS
 
-**Server** Node, Express, Firebase Auth, Mongodb
+**Server:** Node, Express, Firebase Auth, Mongodb
 
-**Deployment** Node server deployed on Heroku, Client deployed with Vercel
+**Deployment:** Node server deployed on Heroku, Client deployed with Vercel
