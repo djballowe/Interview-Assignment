@@ -84,7 +84,7 @@ export default function TimeSheet() {
       };
 
       axios({
-        url: "http://localhost:8080/api/save",
+        url: "https://timesheet-server-1.herokuapp.com/api",
         method: "POST",
         data: payload,
       })
