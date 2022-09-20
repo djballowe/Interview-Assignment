@@ -5,6 +5,8 @@ const TimeSheetSchema = new Schema({
   user: String,
   description: String,
   rate: Number,
+  total: Number,
+  cost: Number,
   line_items: [{ date: String, time: Number }],
 });
 
