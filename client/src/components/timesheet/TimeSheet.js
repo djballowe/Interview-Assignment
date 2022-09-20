@@ -84,7 +84,7 @@ export default function TimeSheet() {
       };
 
       axios({
-        url: "https://timesheet-server-1.herokuapp.com/api",
+        url: "https://timesheet-server-1.herokuapp.com/api/save",
         method: "POST",
         data: payload,
       })
@@ -128,7 +128,6 @@ export default function TimeSheet() {
         console.log("error retrieving data");
       });
     calculateTotal();
-    console.log("use");
   }, []);
 
   return (
